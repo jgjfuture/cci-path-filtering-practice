@@ -22,8 +22,29 @@ jobs:
       - run:
           name: echo
           command: 'echo "Running echo job"'
-
+  build:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: build
+          command: 'echo "Running build job"'
+  test:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: build
+          command: 'echo "Running build job"'
 workflows:
+  build-and-test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
   service-a:
     when:
       or:
