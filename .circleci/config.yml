@@ -4,8 +4,6 @@ orbs:
   path-filtering: circleci/path-filtering@1.0.0
 workflows:
   file-filtering:
-    when:
-      equal: [main, << pipeline.git.branch >>]
     jobs:
       - path-filtering/filter:
           name: check-updated-files
