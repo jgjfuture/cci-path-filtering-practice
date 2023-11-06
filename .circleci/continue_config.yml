@@ -47,22 +47,22 @@ workflows:
             - build
   service-a:
     when:
-      or:
-        - << pipeline.parameters.deploy-service-a >>
-        - << pipeline.parameters.deploy-all >>
+      and:
+        - or: [<< pipeline.parameters.deploy-service-a >>, << pipeline.parameters.deploy-all >>]
+        - equal: [main, << pipeline.git.branch >>]
     jobs:
       - echo
   service-b:
     when:
-      or:
-        - << pipeline.parameters.deploy-service-b >>
-        - << pipeline.parameters.deploy-all >>
+      and:
+        - or: [<< pipeline.parameters.deploy-service-a >>, << pipeline.parameters.deploy-all >>]
+        - equal: [main, << pipeline.git.branch >>]
     jobs:
       - echo
   service-c:
     when:
-      or:
-        - << pipeline.parameters.deploy-service-c >>
-        - << pipeline.parameters.deploy-all >>
+      and:
+        - or: [<< pipeline.parameters.deploy-service-a >>, << pipeline.parameters.deploy-all >>]
+        - equal: [main, << pipeline.git.branch >>]
     jobs:
       - echo
