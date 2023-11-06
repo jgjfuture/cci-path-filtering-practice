@@ -11,6 +11,7 @@ workflows:
             apps/service-a/.* deploy-service-a true
             apps/service-b/.* deploy-service-b true
             apps/service-c/.* deploy-service-c true
+            shared/.* deploy-all true
           filters:
             branches:
               only:

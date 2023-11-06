@@ -10,6 +10,9 @@ parameters:
   deploy-service-c:
     type: boolean
     default: false
+  deploy-all:
+    type: boolean
+    default: false
 
 jobs:
   echo:
@@ -22,14 +25,15 @@ jobs:
 
 workflows:
   service-a:
-    when: << pipeline.parameters.deploy-service-a >>
+    # deploy when service-a or all
+    when: << pipeline.parameters.deploy-service-a >> || << pipeline.parameters.deploy-all >>
     jobs:
       - echo
   service-b:
-    when: << pipeline.parameters.deploy-service-b >>
+    when: << pipeline.parameters.deploy-service-b >> || << pipeline.parameters.deploy-all >>
     jobs:
       - echo
   service-c:
-    when: << pipeline.parameters.deploy-service-c >>
+    when: << pipeline.parameters.deploy-service-c >> || << pipeline.parameters.deploy-all >>
     jobs:
       - echo
