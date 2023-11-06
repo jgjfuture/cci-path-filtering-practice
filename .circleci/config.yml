@@ -3,7 +3,7 @@ setup: true # You must modify project advanced settings to enable this feature.
 orbs:
   path-filtering: circleci/path-filtering@1.0.0
 workflows:
-  always_run:
+  file-filtering:
     jobs:
       - path-filtering/filter:
           name: check-updated-files
