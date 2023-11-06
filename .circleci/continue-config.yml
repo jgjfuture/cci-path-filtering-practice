@@ -1,0 +1,35 @@
+version: 2.1
+
+parameters:
+  deploy-service-a:
+    type: boolean
+    default: false
+  deploy-service-b:
+    type: boolean
+    default: false
+  deploy-service-c:
+    type: boolean
+    default: false
+
+jobs:
+  echo:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run:
+          name: echo
+          command: 'echo "Running echo job"'
+
+workflows:
+  service-a:
+    when: << pipeline.parameters.deploy-service-a >>
+    jobs:
+      - echo
+  service-b:
+    when: << pipeline.parameters.deploy-service-b >>
+    jobs:
+      - echo
+  service-c:
+    when: << pipeline.parameters.deploy-service-c >>
+    jobs:
+      - echo

@@ -1,0 +1,17 @@
+version: 2.1
+setup: true # You must modify project advanced settings to enable this feature.
+orbs:
+  path-filtering: circleci/path-filtering@1.0.0
+workflows:
+  always_run:
+    jobs:
+      - path-filtering/filter:
+          name: check-updated-files
+          mapping: |
+            apps/service-a/.* deploy-service-a true
+            apps/service-b/.* deploy-service-b true
+            apps/service-c/.* deploy-service-c true
+          filters:
+            branches:
+              only:
+                - main
