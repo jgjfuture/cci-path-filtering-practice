@@ -2,8 +2,27 @@ version: 2.1
 setup: true # You must modify project advanced settings to enable this feature.
 orbs:
   path-filtering: circleci/path-filtering@1.0.0
+jobs:
+  build:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: build
+          command: 'echo "Running build job"'
+  test:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: build
+          command: 'echo "Running build job"'
 workflows:
   file-filtering:
+    when:
+      equal: [main, << pipeline.git.branch >>]
     jobs:
       - path-filtering/filter:
           name: check-updated-files
@@ -12,7 +31,9 @@ workflows:
             apps/service-b/.* deploy-service-b true
             apps/service-c/.* deploy-service-c true
             shared/.* deploy-all true
-          filters:
-            branches:
-              only:
-                - main
+  build-and-test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
