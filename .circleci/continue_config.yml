@@ -41,7 +41,11 @@ jobs:
 workflows:
   build-and-test:
     jobs:
+      - app:
+          type: approval
       - build
+          requires:
+            - app
       - test:
           requires:
             - build
