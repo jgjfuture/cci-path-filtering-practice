@@ -43,6 +43,9 @@ workflows:
     jobs:
       - app:
           type: approval
+          filters:
+            branches:
+              ignore: main
       - build:
           requires:
             - app
